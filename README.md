@@ -21,7 +21,7 @@ To run the Cyderes Data Ingestion Service, you'll need:
     ```
 2.  **Go to build directory**:
     ```bash
-    cd cyderes_data_ingestion/Data_Ingestion/build
+    cd data_ingestion_service/Data_Ingestion/build/
     ```
 3.  **Build and start service**:
     ```bash
