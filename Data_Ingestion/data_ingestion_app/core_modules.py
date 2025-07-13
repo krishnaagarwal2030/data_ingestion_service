@@ -90,8 +90,6 @@ def fetch_inserted_data():
     try:
         client, collection_obj = _return_database_connection()
         data = collection_obj.find_one(sort=[('ingested_at', pymongo.DESCENDING)])
-        print(data)
-        print(type(data))
         client.close()
     except Exception as e:
         response_code = 500
