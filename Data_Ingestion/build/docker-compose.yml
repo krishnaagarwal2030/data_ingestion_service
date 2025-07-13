@@ -24,10 +24,10 @@ services:
     hostname: data_ingestion
     env_file:
       - .env
-    volumes:
-        # Only for development purpose, TODO: remove after development/testing
-        - /a/cyderes_data_ingestion/Data_Ingestion/data_ingestion_app/:/data_ingestion_app/
-        - /a/cyderes_data_ingestion/Data_Ingestion/testcase/:/testcase/
+#    volumes:
+#        # Only for development purpose, TODO: remove after development/testing
+#        - /a/cyderes_data_ingestion/Data_Ingestion/data_ingestion_app/:/data_ingestion_app/
+#        - /a/cyderes_data_ingestion/Data_Ingestion/testcase/:/testcase/
     depends_on:
         - mongodb
     ports:
