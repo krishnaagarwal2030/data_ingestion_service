@@ -1,0 +1,34 @@
+services:
+
+  mongodb:
+    image : mongo:7.0.9
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+      MONGO_INITDB_DATABASE: sentry
+    env_file:
+      - .env
+    volumes:
+      - ./mongo-init-scripts:/docker-entrypoint-initdb.d
+    ports:
+      - ${MONGODB_PORT}:27017
+    container_name: mongodb
+
+  data_ingestion:
+    build:
+      context: ../
+      dockerfile: build/Dockerfile
+    restart: always
+    container_name: data_ingestion
+    hostname: data_ingestion
+    env_file:
+      - .env
+    volumes:
+        # Only for development purpose, TODO: remove after development/testing
+        - /a/cyderes_data_ingestion/Data_Ingestion/data_ingestion_app/:/data_ingestion_app/
+        - /a/cyderes_data_ingestion/Data_Ingestion/testcase/:/testcase/
+    depends_on:
+        - mongodb
+    ports:
+        - 8080:8080
