@@ -1,4 +1,6 @@
-##
+"""
+Core modules
+"""
 import requests
 import pymongo
 import os
@@ -87,8 +89,9 @@ def fetch_inserted_data():
     data = None
     try:
         client, collection_obj = _return_database_connection()
-        data = collection_obj.find_one(sort=[('ingested_at', DESCENDING)])
-        print(f"Fetched document ID: {result.inserted_id}")
+        data = collection_obj.find_one(sort=[('ingested_at', pymongo.DESCENDING)])
+        print(data)
+        print(type(data))
         client.close()
     except Exception as e:
         response_code = 500

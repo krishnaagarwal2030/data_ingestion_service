@@ -1,3 +1,6 @@
+"""
+Data ingestion service
+"""
 import uvicorn
 from fastapi import FastAPI, Body, status, Request
 from fastapi.responses import JSONResponse
@@ -30,11 +33,11 @@ def data_retrieval():
     API to retrieve data
     :return:
     """
-    response = fetch_data()
+    response, data = fetch_inserted_data()
     if response != 200:
         return JSONResponse(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             content={'message': f'Error fetching data'})
-    return JSONResponse(status_code=status.HTTP_200_OK, content={'message': f'Data Ingestion Accepted'})
+    return JSONResponse(status_code=status.HTTP_200_OK, content={'message': f'Data Retreived successfully', 'data': str(data)})
 
 
 if __name__ == '__main__':
