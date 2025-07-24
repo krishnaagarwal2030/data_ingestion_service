@@ -1,8 +1,16 @@
-FROM python:3.10
-ENV PYTHONUNBUFFERED 1
-ENV PYTHONDONTWRITEBYTECODE 1
+FROM golang:1.20-alpine
+
 WORKDIR /data_ingestion_app
-COPY ./data_ingestion_app /data_ingestion_app
-COPY ./testcase /testcase
-RUN pip3 install -r /data_ingestion_app/pip-requirements.txt
-CMD ["python", "Data_Ingestion.py"]
+
+RUN apk add --no-cache git
+
+COPY data_ingestion_app/ /data_ingestion_app/
+RUN go mod download
+RUN go get data_ingestion_service
+
+RUN go build -o main .
+
+EXPOSE 8080
+
+CMD ["./main"]
+#CMD ["sleep", "1000"]
